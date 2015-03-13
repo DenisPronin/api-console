@@ -1961,6 +1961,24 @@ RAML.Decorators = (function (Decorators) {
 RAML.Decorators = (function (Decorators) {
   'use strict';
 
+  Decorators.namedParameters = function ($provide) {
+    $provide.decorator('namedParametersDirective', function ($delegate) {
+      var directive = $delegate[0];
+
+      directive.templateUrl = 'voicebase/directives/voicebase-named-parameters.tpl.html'; // replace template
+
+      return $delegate;
+    });
+
+  };
+
+  return Decorators;
+
+})(RAML.Decorators || {});
+
+RAML.Decorators = (function (Decorators) {
+  'use strict';
+
   Decorators.ramlConsole = function ($provide) {
     $provide.decorator('ramlConsoleDirective', function ($delegate, $controller, $timeout, $compile) {
       var directive = $delegate[0];
@@ -2535,6 +2553,7 @@ RAML.Decorators = (function (Decorators) {
     RAML.Decorators.ramlConsole($provide);
     RAML.Decorators.ramlField($provide);
     RAML.Decorators.ramlSidebar($provide);
+    RAML.Decorators.namedParameters($provide); // custom headers can't be empty
 
     // for support custom scheme x-OAuth 2 Bearer
     RAML.Decorators.AuthStrategies();
@@ -6419,6 +6438,51 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
     "  </div>\n" +
     "\n" +
     "</div>\n"
+  );
+
+
+  $templateCache.put('voicebase/directives/voicebase-named-parameters.tpl.html',
+    "<section>\n" +
+    "  <header class=\"raml-console-sidebar-row raml-console-sidebar-subheader\">\n" +
+    "    <h4 class=\"raml-console-sidebar-subhead\">{{title}}</h4>\n" +
+    "    <button class=\"raml-console-sidebar-add-btn\" ng-click=\"addCustomParameter()\" ng-if=\"enableCustomParameters\"></button>\n" +
+    "  </header>\n" +
+    "\n" +
+    "  <div class=\"raml-console-sidebar-row\">\n" +
+    "    <p class=\"raml-console-sidebar-input-container raml-console-sidebar-input-container-custom\" ng-repeat=\"customParam in context.customParameters[type]\">\n" +
+    "      <button class=\"raml-console-sidebar-input-delete\" ng-click=\"removeCutomParam(customParam)\"></button>\n" +
+    "\n" +
+    "      <!-- Start change. Custom header must be required! -->\n" +
+    "      <label for=\"custom-header\" class=\"raml-console-sidebar-label raml-console-sidebar-label-custom\">\n" +
+    "        <input name=\"custom-key\" class=\"raml-console-sidebar-custom-input-for-label\" ng-model=\"customParam.name\" placeholder=\"custom key\" required>\n" +
+    "      </label>\n" +
+    "      <input name=\"custom-header\" class=\"raml-console-sidebar-input raml-console-sidebar-input-custom\" placeholder=\"custom value\" ng-model=\"customParam.value\" required>\n" +
+    "      <span class=\"raml-console-field-validation-error\"></span>\n" +
+    "      <!-- End change -->\n" +
+    "\n" +
+    "    </p>\n" +
+    "\n" +
+    "    <p ng-show=\"showBaseUrl\" class=\"raml-console-sidebar-method\">{{$parent.methodInfo.method.toUpperCase()}}</p>\n" +
+    "    <div ng-show=\"showBaseUrl\" class=\"raml-console-sidebar-method-content\">\n" +
+    "      <div class=\"raml-console-sidebar-url\" ng-repeat=\"segment in segments\">\n" +
+    "        <div ng-hide=\"segment.templated\">{{segment.name}}</div>\n" +
+    "        <div ng-show=\"segment.templated\" ng-if=\"context[type].values[segment.name][0]\" class=\"raml-console-sidebar-url-segment\">{{context[type].values[segment.name][0]}}</div>\n" +
+    "        <div ng-show=\"segment.templated\" ng-if=\"!context[type].values[segment.name][0]\" class=\"raml-console-sidebar-url-segment\"><span ng-non-bindable>&#123;</span>{{segment.name}}<span ng-non-bindable>&#125;</span></div>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <p class=\"raml-console-sidebar-input-container\" ng-repeat=\"param in context[type].plain\">\n" +
+    "      <span class=\"raml-console-sidebar-input-tooltip-container\" ng-if=\"param.definitions[0].description\">\n" +
+    "        <button tabindex=\"-1\" class=\"raml-console-sidebar-input-tooltip\"><span class=\"raml-console-visuallyhidden\">Show documentation</span></button>\n" +
+    "        <span class=\"raml-console-sidebar-tooltip-flyout\">\n" +
+    "          <span marked=\"param.definitions[0].description\" opts=\"markedOptions\"></span>\n" +
+    "        </span>\n" +
+    "      </span>\n" +
+    "\n" +
+    "      <raml-field param=\"param.definitions[0]\" model=\"context[type].values[param.definitions[0].id]\"></raml-field>\n" +
+    "    </p>\n" +
+    "  </div>\n" +
+    "</section>\n"
   );
 
 
