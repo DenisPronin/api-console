@@ -12,7 +12,7 @@ RAML.Decorators = (function (Decorators) {
           if ($scope.loaded) {
             $timeout(function () {
               var el = $compile('<voicebase-sign></voicebase-sign>')($scope);
-              jQuery('#raml-console-documentation-container').before(el);
+              jQuery('.raml-console-title').before(el);
             }, 0);
           }
         });

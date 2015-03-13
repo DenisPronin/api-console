@@ -19,7 +19,7 @@
     RAML.Decorators.AuthStrategies();
 
     // debug
-    RAML.Decorators.ramlInitializer($provide);
+    //RAML.Decorators.ramlInitializer($provide);
 
   });
 
