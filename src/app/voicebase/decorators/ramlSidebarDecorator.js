@@ -26,6 +26,15 @@ RAML.Decorators = (function (Decorators) {
         $scope.$watch(function () {
           return voicebaseTokensApi.getCurrentToken();
         }, function (currentToken) {
+          addTokenHeader(currentToken);
+        });
+
+        $scope.$on('resetData', function() {
+          var currentToken = voicebaseTokensApi.getCurrentToken();
+          addTokenHeader(currentToken);
+        });
+
+        var addTokenHeader = function(currentToken) {
           if($scope.currentSchemeType === 'x-OAuth 2 Bearer') {
             if (currentToken) {
               $scope.context.customParameters.headers.push({
@@ -43,7 +52,7 @@ RAML.Decorators = (function (Decorators) {
               });
             }
           }
-        });
+        };
 
       };
 
