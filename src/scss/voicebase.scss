@@ -10,14 +10,14 @@
 
 .vbs-token-auth-form, .vbs-tokens-error {
   float: right;
-  background: #FFF;
+  background: $color-sidebar-bg;
   z-index: 10;
   position: absolute;
   left: 0;
   top: 50px;
   width: 400px;
-  border: 1px solid #CCC;
-  box-shadow: 0 0 5px #CCC;
+  border: 1px solid $color-sidebar-header-border;
+  box-shadow: 0 0 5px $color-sidebar-header-border;
 
   .vbs-auth-form-btns {
     margin-top: -15px;
@@ -39,9 +39,9 @@
 
 .vbs-tokens-error {
   padding: 15px;
-  color: #a94442;
+  color: $color-console-tab-delete;
   background-color: #f2dede;
-  border-color: #ebccd1;
+  border-color: $color-sidebar-header-border;
 
   .vbs-close {
     position: absolute;

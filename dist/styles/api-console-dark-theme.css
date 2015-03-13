@@ -4276,14 +4276,14 @@ span.raml-console-side-bar-required-field {
 .raml-console-vbs-token-auth-form,
 .raml-console-vbs-tokens-error {
   float: right;
-  background: #FFF;
+  background: #1a202b;
   z-index: 10;
   position: absolute;
   left: 0;
   top: 50px;
   width: 400px;
-  border: 1px solid #CCC;
-  box-shadow: 0 0 5px #CCC;
+  border: 1px solid #12171f;
+  box-shadow: 0 0 5px #12171f;
 }
 
 .raml-console-vbs-token-auth-form .raml-console-vbs-auth-form-btns,
@@ -4308,9 +4308,9 @@ span.raml-console-side-bar-required-field {
 
 .raml-console-vbs-tokens-error {
   padding: 15px;
-  color: #a94442;
+  color: #d14956;
   background-color: #f2dede;
-  border-color: #ebccd1;
+  border-color: #12171f;
 }
 
 .raml-console-vbs-tokens-error .raml-console-vbs-close {
